@@ -511,6 +511,8 @@ button { font: inherit; color: inherit; }
 .autor-red::before, .autor-red::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 162, 77, .55), transparent); }
 .autor-red:first-child { margin-top: 4px; }
 .knjiga.grupisana .a { display: none; }
+.autor-prekid { align-self: stretch; display: flex; align-items: center; gap: 12px; margin: 22px 0 12px; font-size: 9px; color: rgba(201, 162, 77, .85); line-height: 1; }
+.autor-prekid::before, .autor-prekid::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 162, 77, .5), transparent); }
 
 .dodaj-red { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .dodaj-red button.sporedno { background: transparent; color: var(--ink-soft); border-color: var(--gold-lo); box-shadow: none; }
@@ -1092,9 +1094,10 @@ window.BIBLIOTEKA = {"zanrovi":[[1,"Naučna fantastika, fantastika i distopija"]
         if (!gr) { gr = poAutoru[b.a] = { a: b.a, l: [] }; grupe.push(gr); }
         gr.l.push(b);
       });
-      grupe.forEach(function (gr) {
+      grupe.forEach(function (gr, gi) {
         var vise = gr.a && gr.l.length > 1;
         if (vise) frag.appendChild(el('div', 'autor-red', gr.a));
+        else if (gi > 0) frag.appendChild(el('div', 'autor-prekid', '\u25C6'));
         gr.l.forEach(function (b) { frag.appendChild(napraviKnjigu(b, vise)); });
       });
       p.textContent = '';
